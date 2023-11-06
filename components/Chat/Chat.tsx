@@ -102,19 +102,19 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         };
         const endpoint = getEndpoint(plugin);
         let body;
-        if (!plugin) {
-          body = JSON.stringify(chatBody);
-        } else {
-          body = JSON.stringify({
-            ...chatBody,
-            googleAPIKey: pluginKeys
-              .find((key) => key.pluginId === 'google-search')
-              ?.requiredKeys.find((key) => key.key === 'GOOGLE_API_KEY')?.value,
-            googleCSEId: pluginKeys
-              .find((key) => key.pluginId === 'google-search')
-              ?.requiredKeys.find((key) => key.key === 'GOOGLE_CSE_ID')?.value,
-          });
-        }
+        // if (!plugin) {
+        //   body = JSON.stringify(chatBody);
+        // } else {
+        //   body = JSON.stringify({
+        //     ...chatBody,
+        //     googleAPIKey: pluginKeys
+        //       .find((key) => key.pluginId === 'google-search')
+        //       ?.requiredKeys.find((key) => key.key === 'GOOGLE_API_KEY')?.value,
+        //     googleCSEId: pluginKeys
+        //       .find((key) => key.pluginId === 'google-search')
+        //       ?.requiredKeys.find((key) => key.key === 'GOOGLE_CSE_ID')?.value,
+        //   });
+        // }
         const controller = new AbortController();
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -352,20 +352,28 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       {!(apiKey || serverSideApiKeyIsSet) ? (
         <div className="mx-auto flex h-full w-[300px] flex-col justify-center space-y-6 sm:w-[600px]">
           <div className="text-center text-4xl font-bold text-black dark:text-white">
-            Welcome to Chatbot UI
+            Welcome to HikCoder
           </div>
           <div className="text-center text-lg text-black dark:text-white">
-            <div className="mb-8">{`Chatbot UI is an open source clone of OpenAI's ChatGPT UI.`}</div>
-            <div className="mb-2 font-bold">
+            <div className="mb-8">{`欢迎使用 HikCoder`}</div>
+            {/* <div className="mb-2 font-bold">
               Important: Chatbot UI is 100% unaffiliated with OpenAI.
-            </div>
+            </div> */}
           </div>
           <div className="text-center text-gray-500 dark:text-gray-400">
             <div className="mb-2">
-              Chatbot UI allows you to plug in your API key to use this UI with
-              their API.
+              <p>HikCoder 是一个使用了大量编程开发数据训练的大语言模型，</p>
+              <p>致力于帮助您解决编程开发过程中的一些常见问题。</p>
+              <p>例如：</p>
             </div>
-            <div className="mb-2">
+            <ul>
+              <li>使用Python格式化输出当前时间</li>
+              <li>Python如何读取和写入json文件</li>
+              <li>JS搜索字符串中是否存在某一子串</li>
+              <li>Ubuntu设置CUDA环境变量</li>
+              <li>Linux Shell如何解压.taz文件</li>
+            </ul>
+            {/* <div className="mb-2">
               It is <span className="italic">only</span> used to communicate
               with their API.
             </div>
@@ -384,7 +392,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
               >
                 openai.com
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : modelError ? (
@@ -413,7 +421,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                     <div className="flex h-full flex-col space-y-4 rounded-lg border border-neutral-200 p-4 dark:border-neutral-600">
                       <ModelSelect />
 
-                      <SystemPrompt
+                      {/* <SystemPrompt
                         conversation={selectedConversation}
                         prompts={prompts}
                         onChangePrompt={(prompt) =>
@@ -422,7 +430,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                             value: prompt,
                           })
                         }
-                      />
+                      /> */}
 
                       <TemperatureSlider
                         label={t('Temperature')}
