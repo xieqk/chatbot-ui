@@ -102,19 +102,19 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
         };
         const endpoint = getEndpoint(plugin);
         let body;
-        // if (!plugin) {
-        //   body = JSON.stringify(chatBody);
-        // } else {
-        //   body = JSON.stringify({
-        //     ...chatBody,
-        //     googleAPIKey: pluginKeys
-        //       .find((key) => key.pluginId === 'google-search')
-        //       ?.requiredKeys.find((key) => key.key === 'GOOGLE_API_KEY')?.value,
-        //     googleCSEId: pluginKeys
-        //       .find((key) => key.pluginId === 'google-search')
-        //       ?.requiredKeys.find((key) => key.key === 'GOOGLE_CSE_ID')?.value,
-        //   });
-        // }
+        if (!plugin) {
+          body = JSON.stringify(chatBody);
+        } else {
+          body = JSON.stringify({
+            ...chatBody,
+            googleAPIKey: pluginKeys
+              .find((key) => key.pluginId === 'google-search')
+              ?.requiredKeys.find((key) => key.key === 'GOOGLE_API_KEY')?.value,
+            googleCSEId: pluginKeys
+              .find((key) => key.pluginId === 'google-search')
+              ?.requiredKeys.find((key) => key.key === 'GOOGLE_CSE_ID')?.value,
+          });
+        }
         const controller = new AbortController();
         const response = await fetch(endpoint, {
           method: 'POST',
@@ -465,6 +465,7 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
                 </div>
                 {showSettings && (
                   <div className="flex flex-col space-y-10 md:mx-auto md:max-w-xl md:gap-6 md:py-3 md:pt-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
+                  {/* <div className="flex flex-col space-y-10 md:mx-auto md:max-w-xl md:gap-6 md:py-3 md:pt-6 lg:max-w-2xl lg:px-0 xl:max-w-6xl"> */}
                     <div className="flex h-full flex-col space-y-4 border-b border-neutral-200 p-4 dark:border-neutral-600 md:rounded-lg md:border">
                       <ModelSelect />
                     </div>
